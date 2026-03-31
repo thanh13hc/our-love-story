@@ -135,12 +135,12 @@ function Summary() {
               alt=""
             />
             <img
-              src="/img/summary_notification_1.svg"
+              src="/img/summary_notification_2.svg"
               className="message fade-down w-full h-auto"
               alt=""
             />
             <img
-              src="/img/summary_notification_1.svg"
+              src="/img/summary_notification_3.svg"
               className="message fade-down w-full h-auto"
               alt=""
             />
