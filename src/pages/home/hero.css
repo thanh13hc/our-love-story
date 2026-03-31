@@ -1,0 +1,51 @@
+.loading-container {
+  background-color: #e5e4e3;
+}
+.loading-img {
+  @apply top-1/2 left-1/2 absolute shadow-sm;
+}
+
+.loading-img_0 img {
+  rotate: -3deg;
+}
+
+.loading-img_1 img {
+  rotate: 3deg;
+}
+
+.loading-img_1 img {
+  rotate: -8deg;
+}
+
+.loading-img_2 img {
+  rotate: 8deg;
+}
+.loading-img_3 img {
+  rotate: -12deg;
+}
+.loading-img_4 img {
+  rotate: 12deg;
+}
+.loading-img_5 img {
+  rotate: -15deg;
+}
+.loading-img_6 img {
+  rotate: 5deg;
+}
+
+.hero-section {
+  background-color: #ffebd8;
+}
+
+.intro-polaroid,
+.loading-img,
+.cloud__left,
+.cloud__right {
+  will-change: transform, opacity;
+}
+
+/* nav {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+} */

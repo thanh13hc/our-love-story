@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-display: swap;
+  font-family: cyrene;
+  font-weight: 400;
+  src: url(/assets/cyrene-regular.woff2) format("woff2");
+  unicode-range: u + 000 -5ff;
+}
+
+@font-face {
+  font-family: Futura;
+  src: url(/assets/FuturaMaxiCGBook-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  ascent-override: 100%;
+}
+
+@font-face {
+  font-family: Apple Garamond;
+  src: url(/assets/AppleGaramond.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  ascent-override: 100%;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+*,
+body,
+html {
+  font-family: Futura, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffebd8;
+}
+
+.container {
+  @apply max-w-xl;
+}
+
+.font-cyrene {
+  font-family: cyrene, sans-serif !important;
+}
+
+.font-cyrene > * {
+  font-family: cyrene, sans-serif !important;
+}
+
+.font-futura {
+  font-family: Futura, sans-serif !important;
+}
+
+.font-futura > * {
+  font-family: Futura, sans-serif !important;
+}
+
+.font-apple-garamond {
+  font-family: Apple Garamond, sans-serif !important;
+}
+
+.font-apple-garamond > * {
+  font-family: Apple Garamond, sans-serif !important;
+}
+
+.text-blue {
+  color: #0753d8;
+}
+.text-orange {
+  color: #ff5c29;
+}
+
+.apply-perspective {
+  perspective: 600px;
+}
