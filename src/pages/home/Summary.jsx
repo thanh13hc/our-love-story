@@ -8,6 +8,7 @@ const dateSplit = today.toDateString().split(" ");
 
 const dateStr = `${dateSplit[0]}, ${dateSplit.slice(1, 3).join(" ")}`;
 603363;
+let retry = 0;
 function Summary() {
   const containerRef = useRef();
   const videoRef = useRef();
@@ -15,22 +16,47 @@ function Summary() {
     () => {
       const video = videoRef.current;
 
+      function pauseVideo() {
+        video.pause();
+        video.currentTime = 0;
+      }
+
+      function playVideo() {
+        video
+          .play()
+          .then(() => {
+            setTimeout(() => {
+              video.muted = false;
+            }, 1000);
+          })
+          .catch(() => {
+            pauseVideo();
+            if (retry <= 10) {
+              retry++;
+
+              setTimeout(() => {
+                playVideo();
+              }, 500);
+            }
+          });
+      }
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
           end: "+=200%",
-          scrub: 2,
+          scrub: 0.5,
           pin: true,
           anticipatePin: 1,
           onUpdate: (self) => {
-            if (self.progress > 0.99 && video.paused) {
-              video.play();
+            if (self.progress > 0.9 && video.paused) {
+              playVideo();
             }
 
-            if (self.progress < 0.99 && !video.paused) {
-              video.pause();
-              video.currentTime = 0;
+            if (self.progress < 0.9 && !video.paused) {
+              pauseVideo();
+              retry = 0;
             }
           },
         },
@@ -88,12 +114,13 @@ function Summary() {
         <video
           ref={videoRef}
           playsInline
-          loop
+          muted
           className="absolute top-0 left-0 w-full h-full object-contain brightness-75"
           style={{ scale: 0.9 }}
           poster="/img/final_poster.png"
+          preload="auto"
         >
-          <source src="/img/summary_video.mp4"></source>
+          <source src="/img/summary_video_2.mp4"></source>
         </video>
         <div className="absolute flex flex-col items-center w-full h-full px-[20%] py-[30%]">
           <h2 className="fade-down text-center text-2xl font-sans text-white opacity-80 drop-shadow-lg">
