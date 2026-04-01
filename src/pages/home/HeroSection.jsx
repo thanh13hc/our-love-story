@@ -4,6 +4,8 @@ import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useRef } from "react";
 
+const imgs = Array.from({ length: 7 }, (_, idx) => `/img/loading-${idx}.png`);
+
 function HeroSection() {
   const ref = useRef();
   const isOpen = useRef(false);
@@ -82,7 +84,7 @@ function HeroSection() {
 
   return (
     <section id="top" className="w-full overflow-x-hidden" ref={ref}>
-      {/* <div className="loading-container container w-full h-screen fixed z-[9999]">
+      <div className="loading-container container w-full h-screen fixed z-[9999] backdrop-blur-lg">
         {imgs.map((src, idx) => (
           <div
             className={`loading-img loading-img_${idx}`}
@@ -91,7 +93,7 @@ function HeroSection() {
             <img src={src} alt="" />
           </div>
         ))}
-      </div> */}
+      </div>
 
       <nav className="w-full container flex items-center justify-between p-4 fixed z-[999] text-orange">
         <img
