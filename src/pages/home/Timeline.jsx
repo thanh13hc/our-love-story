@@ -245,7 +245,7 @@ function Timeline() {
   );
 
   return (
-    <section ref={timelineRef} className="relative">
+    <section id="timeline" ref={timelineRef} className="relative">
       <div className="w-full h-full overflow-x-hidden">
         <div
           className="w-full h-full absolute overflow-y-visible"

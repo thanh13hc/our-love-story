@@ -107,6 +107,7 @@ function Summary() {
 
   return (
     <section
+      id="secret"
       ref={containerRef}
       className="w-full h-screen flex items-center justify-center overflow-hidden"
     >

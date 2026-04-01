@@ -1,13 +1,33 @@
 import { useGSAP } from "@gsap/react";
 import "./hero.css";
 import gsap from "gsap";
-import { SplitText, ScrollTrigger } from "gsap/all";
+import { SplitText } from "gsap/all";
 import { useRef } from "react";
-
-const imgs = Array.from({ length: 7 }, (_, idx) => `/img/loading-${idx}.png`);
 
 function HeroSection() {
   const ref = useRef();
+  const isOpen = useRef(false);
+  const menuTimelineRef = useRef(null);
+  const menuItems = [
+    { title: "Top", href: "#top" },
+    { title: "Our Adventure", href: "#adventure" },
+    { title: "Our Timeline", href: "#timeline" },
+    { title: "My Scret For You", href: "#secret" },
+  ];
+
+  const { contextSafe } = useGSAP();
+
+  const handleOpenMenu = contextSafe(() => {
+    if (!menuTimelineRef.current) return;
+
+    isOpen.current = !isOpen.current;
+
+    if (isOpen.current) {
+      menuTimelineRef.current.play();
+    } else {
+      menuTimelineRef.current.reverse();
+    }
+  });
 
   useGSAP(
     () => {
@@ -27,13 +47,42 @@ function HeroSection() {
 
       loadingIntroSection2();
       scrollAnimationSection2();
+
+      menuTimelineRef.current = gsap
+        .timeline({ paused: true })
+        .to(
+          ".ri-menu-line",
+          { duration: 0.25, yPercent: -100, opacity: 0 },
+          "same",
+        )
+        .to(
+          ".ri-close-line",
+          { duration: 0.25, yPercent: -100, opacity: 1 },
+          "same",
+        )
+        .to(
+          ".menu-container",
+          {
+            xPercent: -100,
+            duration: 0.4,
+            ease: "power1.inOut",
+          },
+          "same",
+        )
+        .to(".menu-item", {
+          xPercent: -100,
+          duration: 0.5,
+          opacity: 1,
+          stagger: 0.1,
+          ease: "power1.inOut",
+        });
     },
     { scope: ref },
   );
 
   return (
-    <section className="w-full overflow-x-hidden" ref={ref}>
-      <div className="loading-container container w-full h-screen fixed z-[9999]">
+    <section id="top" className="w-full overflow-x-hidden" ref={ref}>
+      {/* <div className="loading-container container w-full h-screen fixed z-[9999]">
         {imgs.map((src, idx) => (
           <div
             className={`loading-img loading-img_${idx}`}
@@ -42,7 +91,7 @@ function HeroSection() {
             <img src={src} alt="" />
           </div>
         ))}
-      </div>
+      </div> */}
 
       <nav className="w-full container flex items-center justify-between p-4 fixed z-[999] text-orange">
         <img
@@ -50,8 +99,35 @@ function HeroSection() {
           className="logo w-20 aspect-square drop-shadow-md"
           alt=""
         />
-        <i className="ri-menu-line text-xl p-2 bg-white leading-none rounded-full inline-block shadow-md"></i>
+
+        <div
+          className="w-[36px] h-[36px] text-xl p-2 bg-white leading-none rounded-full shadow-md flex flex-col overflow-hidden"
+          onClick={handleOpenMenu}
+        >
+          <i className="ri-menu-line opacity-100"></i>
+          <i className="ri-close-line opacity-0"></i>
+        </div>
       </nav>
+
+      <div className="right-0 top-0 w-full h-full bg-[#E5CBBB]/95 fixed z-[998] pt-40 menu-container translate-x-full">
+        <div className="h-full px-5">
+          <div className="space-y-3">
+            {menuItems.map((i, idx) => (
+              <a
+                key={i.href}
+                href={i.href}
+                className="menu-item w-full block text-left px-4 py-3 rounded-2xl bg-white/85 border border-white shadow-sm text-orange font-semibold tracking-wide hover:bg-white transition-colors duration-300 translate-x-full opacity-0"
+                onClick={handleOpenMenu}
+              >
+                <span className="mr-2 text-sm opacity-70">
+                  {(idx + 1).toString().padStart(2, "0")}
+                </span>
+                {i.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <div className="relative hero-section w-full">
         <div className="intro relative w-full h-screen flex flex-col items-center justify-center p-4">

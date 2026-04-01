@@ -80,7 +80,7 @@ function Adventure() {
   );
 
   return (
-    <section ref={timelineRef} className="relative">
+    <section id="adventure" ref={timelineRef} className="relative">
       <div className="timeline-title w-full h-screen flex items-center justify-center flex-col relative overflow-x-hidden">
         <div
           className="w-full h-full absolute top-0 left-0 overflow-y-visible"
